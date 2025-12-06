@@ -21,9 +21,4 @@ public class Feline extends Animal implements Predator {
     public int getKittens(int kittensCount) {
         return kittensCount;
     }
-
-    @Override
-    public List<String> getFood(String animalKind) throws Exception {
-        return super.getFood(animalKind);
-    }
 }
