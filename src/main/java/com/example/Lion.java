@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Lion implements Predator {
 
-    private final Feline feline;
+    private final Predator predator;
 
-    public Lion(Feline feline, String sex) throws Exception {
-        this.feline = feline;
+    public Lion(Predator predator, String sex) throws Exception {
+        this.predator = predator;
         if (!"Самец".equals(sex) && !"Самка".equals(sex)) {
             throw new Exception("Используйте допустимые значения пола - Самец или Самка");
         }
@@ -15,17 +15,21 @@ public class Lion implements Predator {
 
     @Override
     public List<String> eatMeat() throws Exception {
-        return feline.eatMeat();
+        return predator.eatMeat();
     }
-
 
     @Override
     public String getFamily() {
-        return feline.getFamily();
+        return predator.getFamily();
     }
 
-
+    @Override
     public int getKittens() {
-        return feline.getKittens();
+        return predator.getKittens();
+    }
+
+    public boolean hasMane() throws Exception {
+        // Логика определения гривы
+        return true; // упрощенный пример
     }
 }
