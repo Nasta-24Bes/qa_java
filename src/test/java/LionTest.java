@@ -25,21 +25,21 @@ public class LionTest {
     @Test
     public void getKittensUsesFelineKittens() throws Exception {
         when(feline.getKittens()).thenReturn(5);
-        Lion lion = new Lion(feline, "Самец"); //Создаем lion здесь, передавая мок feline
+        Lion lion = new Lion(feline, "Самец");
         assertEquals(5, lion.getKittens());
     }
 
     @Test
     public void getFamilyUsesFelineFamily() throws Exception {
         when(feline.getFamily()).thenReturn("Кошачьи");
-        Lion lion = new Lion(feline, "Самка");  //Создаем lion здесь, передавая мок feline
+        Lion lion = new Lion(feline, "Самка");
         assertEquals("Кошачьи", lion.getFamily());
     }
 
     @Test
     public void eatMeatUsesFelineEatMeat() throws Exception {
         when(feline.eatMeat()).thenReturn(List.of("Мясо"));
-        Lion lion = new Lion(feline, "Самец");  //Создаем lion здесь, передавая мок feline
+        Lion lion = new Lion(feline, "Самец");
         assertEquals(List.of("Мясо"), lion.eatMeat());
     }
 }
