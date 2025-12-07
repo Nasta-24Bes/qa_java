@@ -4,31 +4,41 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
 
     @Mock
-    private Predator predatorMock;
+    private Feline felineMock;
 
     @Test
-    public void testGetSound() {
-        Cat cat = new Cat(predatorMock);
-        assertEquals("Мяу", cat.getSound());
+    public void testGetSoundReturnsCorrectSound() {
+        Cat cat = new Cat(felineMock);
+        assertEquals("Метод getSound должен возвращать 'Мяу'",
+                "Мяу", cat.getSound());
     }
 
     @Test
-    public void testGetFood() throws Exception {
-        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
-        when(predatorMock.eatMeat()).thenReturn(expectedFood);
-        Cat cat = new Cat(predatorMock);
+    public void testGetFoodCallsFelineEatMeat() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        when(felineMock.eatMeat()).thenReturn(expectedFood);
+
+        Cat cat = new Cat(felineMock);
         List<String> actualFood = cat.getFood();
-        assertEquals(expectedFood, actualFood);
+
+        assertEquals("Метод getFood должен возвращать еду от Feline",
+                expectedFood, actualFood);
+        verify(felineMock, times(1)).eatMeat();
+    }
+
+    @Test(expected = Exception.class)
+    public void testGetFoodPropagatesException() throws Exception {
+        when(felineMock.eatMeat()).thenThrow(new Exception("Test exception"));
+
+        Cat cat = new Cat(felineMock);
+        cat.getFood();
     }
 }
