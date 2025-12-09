@@ -26,8 +26,13 @@ public class LionTest {
         assertFalse("Львица не должна иметь гриву", lion.doesHaveMane());
     }
 
+    @Test(expected = Exception.class)
+    public void testConstructorWithNullFelineThrowsException() throws Exception {
+        new Lion("Самец", null);
+    }
+
     @Test
-    public void testConstructorWithNullFelineThrowsException() {
+    public void testConstructorWithNullFelineExceptionMessage() {
         try {
             new Lion("Самец", null);
             fail("Должно быть выброшено исключение при null feline");
@@ -36,8 +41,13 @@ public class LionTest {
         }
     }
 
+    @Test(expected = Exception.class)
+    public void testConstructorWithInvalidSexThrowsException() throws Exception {
+        new Lion("Неизвестный", felineMock);
+    }
+
     @Test
-    public void testConstructorWithInvalidSexThrowsException() {
+    public void testConstructorWithInvalidSexExceptionMessage() {
         try {
             new Lion("Неизвестный", felineMock);
             fail("Должно быть выброшено исключение при невалидном поле");
@@ -47,8 +57,13 @@ public class LionTest {
         }
     }
 
+    @Test(expected = Exception.class)
+    public void testConstructorWithNullSexThrowsException() throws Exception {
+        new Lion(null, felineMock);
+    }
+
     @Test
-    public void testConstructorWithNullSexThrowsException() {
+    public void testConstructorWithNullSexExceptionMessage() {
         try {
             new Lion(null, felineMock);
             fail("Должно быть выброшено исключение при null поле");
@@ -59,7 +74,7 @@ public class LionTest {
     }
 
     @Test
-    public void testGetKittensCallsFelineGetKittens() throws Exception {
+    public void testGetKittensReturnsCorrectValue() throws Exception {
         when(felineMock.getKittens()).thenReturn(3);
 
         Lion lion = new Lion("Самец", felineMock);
@@ -67,11 +82,20 @@ public class LionTest {
 
         assertEquals("getKittens должен возвращать значение от Feline",
                 3, kittens);
+    }
+
+    @Test
+    public void testGetKittensCallsFelineMethod() throws Exception {
+        when(felineMock.getKittens()).thenReturn(3);
+
+        Lion lion = new Lion("Самец", felineMock);
+        lion.getKittens();
+
         verify(felineMock, times(1)).getKittens();
     }
 
     @Test
-    public void testGetFoodCallsFelineEatMeat() throws Exception {
+    public void testGetFoodReturnsCorrectFood() throws Exception {
         List<String> expectedFood = List.of("Мясо", "Рыба");
         when(felineMock.eatMeat()).thenReturn(expectedFood);
 
@@ -80,6 +104,16 @@ public class LionTest {
 
         assertEquals("getFood должен возвращать еду от Feline",
                 expectedFood, actualFood);
+    }
+
+    @Test
+    public void testGetFoodCallsFelineMethod() throws Exception {
+        List<String> expectedFood = List.of("Мясо", "Рыба");
+        when(felineMock.eatMeat()).thenReturn(expectedFood);
+
+        Lion lion = new Lion("Самка", felineMock);
+        lion.getFood();
+
         verify(felineMock, times(1)).eatMeat();
     }
 

@@ -28,8 +28,14 @@ public class FelineTest {
                 1, feline.getKittens());
     }
 
+    @Test(expected = Exception.class)
+    public void testGetFoodThrowsException() throws Exception {
+        Feline feline = new Feline();
+        feline.getFood("Неизвестный");
+    }
+
     @Test
-    public void testEatMeatThrowsExceptionForInvalidAnimalKind() {
+    public void testGetFoodExceptionHasCorrectMessage() {
         Feline feline = new Feline();
         try {
             feline.getFood("Неизвестный");

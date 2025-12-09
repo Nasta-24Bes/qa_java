@@ -22,7 +22,7 @@ public class LionParameterizedTest {
         this.expectedHasMane = expectedHasMane;
     }
 
-    @Parameters
+    @Parameters(name = "Пол: {0}, ожидаемое наличие гривы: {1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
                 {"Самец", true},

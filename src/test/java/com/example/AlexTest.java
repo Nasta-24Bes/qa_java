@@ -48,9 +48,8 @@ public class AlexTest {
         when(felineMock.eatMeat()).thenReturn(expectedFood);
 
         Alex alex = new Alex(felineMock);
-        List<String> actualFood = alex.getFood();
+        alex.getFood();
 
-        assertEquals("Еда должна совпадать", expectedFood, actualFood);
         verify(felineMock, times(1)).eatMeat();
     }
 
@@ -68,11 +67,23 @@ public class AlexTest {
     }
 
     @Test
-    public void testFriendsListHasCorrectOrder() throws Exception {
+    public void testFirstFriendIsMarty() throws Exception {
         Alex alex = new Alex(felineMock);
         List<String> friends = alex.getFriends();
         assertEquals("Первый друг должен быть Марти", "Марти", friends.get(0));
+    }
+
+    @Test
+    public void testSecondFriendIsGloria() throws Exception {
+        Alex alex = new Alex(felineMock);
+        List<String> friends = alex.getFriends();
         assertEquals("Второй друг должна быть Глория", "Глория", friends.get(1));
+    }
+
+    @Test
+    public void testThirdFriendIsMelman() throws Exception {
+        Alex alex = new Alex(felineMock);
+        List<String> friends = alex.getFriends();
         assertEquals("Третий друг должен быть Мелман", "Мелман", friends.get(2));
     }
 }
